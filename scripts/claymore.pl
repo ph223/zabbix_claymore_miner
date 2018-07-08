@@ -76,61 +76,57 @@ if (exists $json->{'result'}) {
 
 sub print_info
 {
-  print "{\n";
-  print "\t\"data\":[\n\n";
+  print "{";
+  my $first = 1;
   for my $key ( keys %stat ) {
-    print "\t\t\"{#" . uc($key) . "}\":\"" . $stat{$key} . "\",\n";
+    print "," if not $first;
+    $first = 0;
+    print "\"" . $key . "\":\"" . $stat{$key} . "\"";
   }
-  print "\n\t]\n";
-  print "}\n";
+  print "}";
 }
 
-sub print_cards
+sub print_discovery
 {
-  print "{\n";
-  print "\t\"data\":[\n\n";
+  print "{\"data\":[";
   
   my $first = 1;
   foreach my $card ( @cards ) {
     my %c = %$card;
-    print ",\n" if not $first;
+    print "," if not $first;
     $first = 0;
-    print "\t\t{\n";
-    for my $key ( keys %c ) {
-      print "\t\t\t\"{#" . uc($key) . "}\":\"" . $c{$key} . "\",\n";
-    }
-    print "\t\t}";
+    print "{\"{#CARD}\":\"" . $c{'card'} . "\"}";
   }
-  print "\n\t]\n";
-  print "}\n";
+  print "]}";
 }
 
-sub print_card
+sub print_card_info
 {
   my $num = $_[0];
-  print "{\n";
-  print "\t\"data\":[\n\n";
+  print "{";
   foreach my $card ( @cards ) {
     my %c = %$card;
-    if ($num == $c{card}) {
+    if ($ARGV[1]==$c{card}) {
+      my $first = 1;
       for my $key ( keys %c ) {
-        print "\t\t\"{#" . uc($key) . "}\":\"" . $c{$key} . "\",\n";
+        print "," if not $first;
+        $first = 0;
+        print "\"" . $key . "\":\"" . $c{$key} . "\"";
       }
     } 
   }
-  print "\n\t]\n";
-  print "}\n";
+  print "}";
 }
 
 switch ($ARGV[0]) {
   case "info" {
     print_info;
   } 
-  case "cards" {
-    print_cards;
+  case "discovery" {
+    print_discovery;
   }
-  case "card" {
-    print_card($ARGV[1]);
+  case "card_info" {
+    print_card_info;
   }
   else { print "\n"; }
 }
