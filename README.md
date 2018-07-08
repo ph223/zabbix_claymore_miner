@@ -1,6 +1,6 @@
 # zabbix_claymore_miner
 
-This is a template for Zabbix, designed to collect metrics from Claymore's Ethereum Dual miner.
+This is a template for Zabbix, designed to collect metrics from Claymore's Ethereum Dual miner, such as hashrates, temperature, pool address etc.
 
 # Requirements
 
