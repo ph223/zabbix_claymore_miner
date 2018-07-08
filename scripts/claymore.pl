@@ -3,15 +3,12 @@
 use strict;
 use JSON;
 use IO::Socket::INET;
-use Data::Dumper;
 use Switch;
 
 my $claymore_host = '127.0.0.1';
 my $claymore_port = '3333';
 
 my ($socket,$client_socket);
-
-
 $socket = new IO::Socket::INET (
   PeerHost => $claymore_host,
   PeerPort => $claymore_port,
